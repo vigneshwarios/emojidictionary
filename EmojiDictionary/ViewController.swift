@@ -22,12 +22,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     //WHat is the content in the table view (cell =table row)
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //Creating new UI Table view cell abd assiging it to cell constant.
+        //Creating new UI Table view cell and assiging it to cell constant.
         //let keyword is to declare contstant.
         let cell = UITableViewCell()
         cell.textLabel?.text = emojis[indexPath.row]
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let emoji = emojis[indexPath.row]
+        performSegue(withIdentifier: "moveSegue", sender: emoji)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       print(sender)
+       let defVC = segue.destination as! DefinationViewController
+       defVC.emoji = sender as! String
+        
+   }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
